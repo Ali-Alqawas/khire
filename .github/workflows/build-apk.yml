@@ -27,7 +27,7 @@ jobs:
           channel: 'stable'
 
       - name: Install Dependencies
-        run: flutter pub get
+        run: flutter build apk --debug --android-skip-build-dependency-validation
 
       - name: Build APK (Debug)
         run: flutter build apk --debug
