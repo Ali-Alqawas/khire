@@ -21,10 +21,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Flutter (Legacy Version)
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6' # 👈 هذا هو السطر السحري! استخدمنا نسخة قديمة ومستقرة
+          flutter-version: '3.27.2' # 👈 غير هذا السطر ليطابق جهازك
           channel: 'stable'
 
       - name: Install Dependencies
