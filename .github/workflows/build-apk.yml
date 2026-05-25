@@ -1,15 +1,15 @@
 name: Build Flutter APK
 
 on:
-  workflow_dispatch: # هذا السطر يسمح لك بتشغيل البناء يدوياً بضغطة زر
+  workflow_dispatch:
   push:
     branches:
       - main
-      - master # يعمل تلقائياً إذا رفعت تعديلات على هذين الفرعين
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest # استخدام سيرفر أوبونتو سريع
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -19,15 +19,16 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17' # توافق ممتاز مع إصدارات Gradle الحديثة
+          java-version: '17'
 
-      - name: Setup Flutter
+      - name: Setup Flutter (Legacy Version)
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.19.6' # 👈 هذا هو السطر السحري! استخدمنا نسخة قديمة ومستقرة
           channel: 'stable'
 
       - name: Install Dependencies
-        run: flutter build apk --debug --android-skip-build-dependency-validation
+        run: flutter pub get
 
       - name: Build APK (Debug)
         run: flutter build apk --debug
@@ -35,5 +36,5 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: appkhire # اسم الملف الذي ستحمله لاحقاً
-          path: build/app/outputs/apk/debug/app-debug.apk # مسارك الصحيح الذي حددناه سابقاً
+          name: debug-apk
+          path: build/app/outputs/apk/debug/app-debug.apk
